@@ -20,12 +20,14 @@ public class TransferMoneyService {
         Account accountFrom = accountRepository.findByIdAndLock(payload.getFromAccount());
 
         if (accountFrom.getBalance().getAmount() < payload.getAmount()) {
+            accountRepository.rollback();
             throw new InsufficientFundsException();
         }
 
         Account accountTo = accountRepository.findByIdAndLock(payload.getToAccount());
 
         if (!accountFrom.getCurrency().equals(accountTo.getCurrency())) {
+            accountRepository.rollback();
             throw new DifferentTransferCurrenciesException();
         }
 

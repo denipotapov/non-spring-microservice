@@ -1,32 +1,30 @@
 package com.example.repositories;
 
-import com.example.configuration.HibernateSessionFactory;
+import com.example.configuration.HibernateEntityManagerFactory;
 import com.example.entities.db.Account;
 import com.example.exceptions.AccountNotFoundException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import java.util.Optional;
-
-import static org.hibernate.LockMode.OPTIMISTIC;
 
 public class AccountRepository {
 
-    private SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
-    private Session session;
-    private Transaction transaction;
+    private EntityManagerFactory entityManagerFactory = HibernateEntityManagerFactory.getEntityManagerFactory();
+    private EntityManager entityManager;
+    private EntityTransaction transaction;
 
     public Account findByIdAndLock(long id) throws AccountNotFoundException {
-        if (session == null || !session.isOpen()) {
-            session = sessionFactory.openSession();
+        if (entityManager == null || !entityManager.isOpen()) {
+            entityManager = entityManagerFactory.createEntityManager();
         }
 
         if (transaction == null || !transaction.isActive()) {
-            transaction = session.beginTransaction();
+            transaction = entityManager.getTransaction();
         }
 
-        return Optional.ofNullable(session.get(Account.class, id, OPTIMISTIC))
+        return Optional.ofNullable(entityManager.find(Account.class, id))
                 .orElseThrow(() -> new AccountNotFoundException(id));
     }
 
@@ -37,8 +35,14 @@ public class AccountRepository {
     }
 
     public void closeSession() {
-        if (session != null) {
-            session.close();
+        if (entityManager != null) {
+            entityManager.close();
+        }
+    }
+
+    public void rollback() {
+        if (transaction != null) {
+            transaction.rollback();
         }
     }
 }

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.sql.Timestamp;
 
 @Entity
@@ -24,7 +25,7 @@ import java.sql.Timestamp;
 public class Account {
 
     @Id
-    @GenericGenerator(name = "ACCOUNT_SEQ", strategy = "increment")
+    @GenericGenerator(name = "ACCOUNT_SEQ", strategy = "enhanced-sequence")
     @GeneratedValue(generator = "ACCOUNT_SEQ")
     @Column(name = "ID")
     @Setter(AccessLevel.PRIVATE)
@@ -41,6 +42,7 @@ public class Account {
     @Getter
     private Timestamp openDate;
 
+    @PastOrPresent
     @Column(name = "CLOSE_DATE", insertable = false)
     @Setter
     @Getter

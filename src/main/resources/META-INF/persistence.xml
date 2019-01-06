@@ -1,0 +1,39 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+<!-- Define persistence unit -->
+<persistence-unit name="moneyTransfer">
+
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <class>com.example.entities.db.Account</class>
+    <class>com.example.entities.db.Currency</class>
+
+    <properties>
+
+        <property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver" />
+        <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
+        <property name="hibernate.connection.url" value="jdbc:derby:micro;create=true" />
+        <property name="hibernate.hbm2ddl.auto" value="update" />
+        <property name="hibernate.show_sql" value="true" />
+
+    </properties>
+</persistence-unit>
+</persistence>
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+        <!--<!DOCTYPE hibernate-configuration PUBLIC-->
+                <!--"-//Hibernate/Hibernate Configuration DTD 3.0//EN"-->
+                <!--"http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">-->
+<!--<hibernate-configuration>-->
+<!--<session-factory>-->
+    <!--<property name="connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>-->
+    <!--<property name="dialect">org.hibernate.dialect.DerbyTenSevenDialect</property>-->
+    <!--<property name="connection.url">jdbc:derby:micro;create=true</property>-->
+    <!--<property name="hbm2ddl.auto">update</property>-->
+    <!--<property name="show_sql">true</property>-->
+
+    <!--<mapping class="com.example.entities.db.Account" />-->
+    <!--<mapping class="com.example.entities.db.Currency" />-->
+<!--</session-factory>-->
+<!--</hibernate-configuration>-->

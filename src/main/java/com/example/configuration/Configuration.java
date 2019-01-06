@@ -6,25 +6,24 @@ import java.util.Properties;
 
 public class Configuration {
 
-    private static Properties configuration;
+    private static Properties systemProperties = System.getProperties();
 
-    public static void loadConfiguration(String fileName) {
-        configuration = new Properties();
-        try (InputStream properties =
-                     Configuration.class.getClassLoader().getResourceAsStream(fileName)) {
-            configuration.load(properties);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static void loadConfiguration(String fileName) throws IOException {
+        try {
+            InputStream properties = Configuration.class.getClassLoader().getResourceAsStream(fileName);
+            systemProperties.load(properties);
+        } catch (NullPointerException e) {
         }
+
     }
 
     public static String get(String name) {
-        return configuration.getProperty(name);
+        return systemProperties.getProperty(name);
     }
 
     public static String getOrDefault(String name, String defaultValue) {
-        if (configuration.getProperty(name) == null) {
+        if (systemProperties.getProperty(name) == null) {
             return defaultValue;
-        } else return configuration.getProperty(name);
+        } else return systemProperties.getProperty(name);
     }
 }

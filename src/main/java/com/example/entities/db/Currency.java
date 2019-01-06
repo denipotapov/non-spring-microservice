@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 public class Currency {
 
     @Id
-    @GenericGenerator(name = "CURRENCY_SEQ", strategy = "increment")
+    @GenericGenerator(name = "CURRENCY_SEQ", strategy = "enhanced-sequence")
     @GeneratedValue(generator = "CURRENCY_SEQ")
     @Setter(AccessLevel.PRIVATE)
     @Column(name = "ID")
