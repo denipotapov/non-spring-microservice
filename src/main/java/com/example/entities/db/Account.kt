@@ -3,7 +3,8 @@ package com.example.entities.db
 import org.hibernate.annotations.Generated
 import org.hibernate.annotations.GenerationTime.INSERT
 import org.hibernate.annotations.GenericGenerator
-import java.sql.Timestamp
+import org.hibernate.annotations.Parameter
+import java.util.*
 import javax.persistence.Column
 import javax.persistence.Embedded
 import javax.persistence.Entity
@@ -22,35 +23,40 @@ import javax.validation.constraints.PastOrPresent
 @Table(name = "ACCOUNTS")
 data class Account(
         @Id
-        @GenericGenerator(name = "ACCOUNT_SEQ", strategy = "enhanced-sequence")
+        @GenericGenerator(name = "ACCOUNT_SEQ",
+                strategy = "enhanced-sequence",
+                parameters = [
+                        Parameter(name = "initial_value", value = "1"),
+                        Parameter(name = "increment_size", value = "1")]
+        )
         @GeneratedValue(generator = "ACCOUNT_SEQ")
         @Column(name = "ID")
-        val id: Long? = null,
+        val id: Long,
 
         @NotNull
         @Column(name = "ACCOUNT_TYPE")
-        val type: AccountType? = null,
+        var type: AccountType,
 
         @NotNull
         @Temporal(TIMESTAMP)
         @Generated(INSERT)
         @Column(name = "OPEN_DATE", updatable = false, insertable = false)
-        var openDate: Timestamp? = null,
+        var openDate: Date,
 
         @PastOrPresent
         @Temporal(TIMESTAMP)
         @Column(name = "CLOSE_DATE", insertable = false)
-        var closeDate: Timestamp? = null,
+        var closeDate: Date,
 
         @Embedded
-        var balance: Balance? = null,
+        var balance: Balance,
 
         @ManyToOne
         @JoinColumn(name = "CURRENCY_ID", updatable = false)
         @NotNull
-        var currency: Currency? = null,
+        var currency: Currency,
 
         @Version
         @Column(name = "VERSION")
-        val version: Long? = null)
-
+        val version: Long
+)

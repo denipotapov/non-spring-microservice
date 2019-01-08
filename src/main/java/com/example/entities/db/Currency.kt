@@ -20,17 +20,17 @@ data class Currency(
         @GenericGenerator(name = "CURRENCY_SEQ", strategy = "enhanced-sequence")
         @GeneratedValue(generator = "CURRENCY_SEQ")
         @Column(name = "ID")
-        val id: Long? = null,
+        val id: Long,
 
         @NotBlank
         @Column(name = "CURRENCY_NAME")
-        val currencyName: String? = null,
+        var currencyName: String,
 
         @NotNull
         @Column(name = "CURRENCY_CODE")
-        val code: Int? = null,
+        var code: Int,
 
         @Version
         @Column(name = "VERSION")
-        val version: Long? = null
+        val version: Long
 )
