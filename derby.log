@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Thu Jan 03 02:03:15 MSK 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0168-10ce-81ed-00001230a8c0 
+Mon Jan 07 04:31:00 MSK 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0168-25ef-346d-00000bac00a0 
 on database directory /Users/denispotapov/IdeaProjects/moneyTransfer/micro with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
 Loaded from file:/Users/denispotapov/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation

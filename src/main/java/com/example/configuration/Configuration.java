@@ -2,6 +2,7 @@ package com.example.configuration;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.NoSuchFileException;
 import java.util.Properties;
 
 public class Configuration {
@@ -9,12 +10,11 @@ public class Configuration {
     private static Properties systemProperties = System.getProperties();
 
     public static void loadConfiguration(String fileName) throws IOException {
-        try {
-            InputStream properties = Configuration.class.getClassLoader().getResourceAsStream(fileName);
-            systemProperties.load(properties);
-        } catch (NullPointerException e) {
+        InputStream properties = Configuration.class.getClassLoader().getResourceAsStream(fileName);
+        if (properties == null) {
+            throw new NoSuchFileException(fileName);
         }
-
+        systemProperties.load(properties);
     }
 
     public static String get(String name) {
