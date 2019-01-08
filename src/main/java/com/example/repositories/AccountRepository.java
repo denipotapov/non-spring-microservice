@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public class AccountRepository {
 
+    //todo rewrite entirely
+
     private EntityManagerFactory entityManagerFactory = HibernateEntityManagerFactory.getEntityManagerFactory();
     private EntityManager entityManager;
     private EntityTransaction transaction;
@@ -26,12 +28,6 @@ public class AccountRepository {
 
         return Optional.ofNullable(entityManager.find(Account.class, id))
                 .orElseThrow(() -> new AccountNotFoundException(id));
-    }
-
-    public void commit() {
-        if (transaction != null) {
-            transaction.commit();
-        }
     }
 
     public void closeSession() {

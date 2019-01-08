@@ -36,7 +36,6 @@ public class TransferMoneyService {
         accountFrom.getBalance().setAmount(balanceFrom - payload.getAmount());
         accountTo.getBalance().setAmount(balanceTo + payload.getAmount());
 
-        accountRepository.commit();
         accountRepository.closeSession();
 
     }
