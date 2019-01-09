@@ -11,4 +11,4 @@ data class Balance(
         @Generated(INSERT)
         @ColumnDefault("0")
         @Column(name = "BALANCE_AMOUNT", insertable = false)
-        var amount: Int? = null)
+        var amount: Int)
